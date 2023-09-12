@@ -1,5 +1,17 @@
 # ISUCON12 予選問題
 
+## 動かない問題について
+
+大体の問題がpermission関連。
+
+1. 初期起動の際、`docker compose up`する代わりに`./compose`を実行する
+  - ホストのvolumeをマウントしているにも関わらずUIDが決め打ちになっているため修正した
+2. benchディレクトリにて`make benchmarker_tenant.json`を実行する
+  - benchコンテナの中で実行しても良いが、ghのインストールなどが面倒なためホストでやるのがおすすめ
+  - このタイミングでpermission deniedが発生した場合initial_dataディレクトリの所有者がrootになっている可能性があるのでここで確認して修正
+3. benchディレクトリにて`make bench && ./bench`を実行する
+  - tenant_dbの所有者がrootになっていて初期化リクエストに失敗する場合があるので、webapp/tenant_dbの所有者を確認して修正
+
 ## ディレクトリ構成
 
 ```
