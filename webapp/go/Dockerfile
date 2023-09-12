@@ -1,5 +1,7 @@
 FROM golang:1.18.4-bullseye
 
+ARG UID
+
 WORKDIR /tmp
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
@@ -10,7 +12,7 @@ RUN apt-get update && \
   apt-get -y update && \
   apt-get -y install mysql-client
 
-RUN useradd --uid=1001 --create-home isucon
+RUN useradd --uid=$UID --create-home isucon
 USER isucon
 
 RUN mkdir -p /home/isucon/webapp/go
